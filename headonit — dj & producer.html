@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)file:///Users/baturaykartal/Downloads/headonit_1.html -->
+<html lang="tr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HEADONIT — DJ &amp; Producer</title>
+  <link href="./HEADONIT — DJ &amp; Producer_files/css2" rel="stylesheet">
+  <style>
+    :root {
+      --bg:        #0d0a07;
+      --bg2:       #151008;
+      --soil:      #3b2a1a;
+      --terra:     #7c4f2f;
+      --warm:      #c47c3e;
+      --gold:      #d4a054;
+      --sand:      #e8c88a;
+      --cream:     #f5ead6;
+      --accent:    #e07c3a;
+      --text:      #f0e0c4;
+      --muted:     #9a7d5e;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Mono', monospace;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* CUSTOM CURSOR */
+    .cursor {
+      width: 12px; height: 12px;
+      background: var(--accent);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
+      mix-blend-mode: difference;
+    }
+    .cursor-ring {
+      width: 36px; height: 36px;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.18s ease, width 0.3s, height 0.3s, opacity 0.3s;
+      opacity: 0.6;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.6rem 4rem;
+      background: linear-gradient(to bottom, rgba(13,10,7,0.95), transparent);
+      backdrop-filter: blur(2px);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      text-decoration: none;
+      position: relative;
+    }
+    .nav-logo::after {
+      content: '';
+      position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 1px; background: var(--accent);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.4s;
+    }
+    .nav-logo:hover::after { transform: scaleX(1); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--sand); }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      position: relative;
+      overflow: hidden;
+      padding: 0 4rem 5rem;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 60% 30%, rgba(124,79,47,0.25) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 50% at 20% 80%, rgba(196,124,62,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 100% 100% at 50% 50%, rgba(212,160,84,0.04) 0%, transparent 80%);
+    }
+    .hero-grain {
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.4; pointer-events: none;
+    }
+    .hero-lines {
+      position: absolute; inset: 0; overflow: hidden;
+    }
+    .hero-lines::before {
+      content: '';
+      position: absolute;
+      top: 20%; right: 8%;
+      width: 1px; height: 55%;
+      background: linear-gradient(to bottom, transparent, var(--soil), var(--terra), transparent);
+      opacity: 0.5;
+    }
+    .hero-lines::after {
+      content: '';
+      position: absolute;
+      top: 35%; right: 12%;
+      width: 180px; height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      opacity: 0.3;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.65rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+      opacity: 0;
+      animation: fadeUp 1s 0.3s forwards;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(5rem, 14vw, 13rem);
+      font-weight: 900;
+      line-height: 0.88;
+      color: var(--cream);
+      letter-spacing: -0.02em;
+      opacity: 0;
+      animation: fadeUp 1s 0.5s forwards;
+    }
+    .hero-title span {
+      display: block;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--terra);
+    }
+    .hero-sub {
+      margin-top: 2rem;
+      display: flex; align-items: center; gap: 2rem;
+      opacity: 0;
+      animation: fadeUp 1s 0.8s forwards;
+    }
+    .hero-sub p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--muted);
+      max-width: 360px;
+      line-height: 1.7;
+    }
+    .hero-cta {
+      display: flex; gap: 1.2rem;
+      margin-top: 3rem;
+      opacity: 0;
+      animation: fadeUp 1s 1s forwards;
+    }
+    .btn-primary {
+      padding: 1rem 2.4rem;
+      background: var(--accent);
+      color: var(--bg);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none; cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--gold); transform: translateY(-2px); }
+    .btn-outline {
+      padding: 1rem 2.4rem;
+      background: transparent;
+      color: var(--sand);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid var(--soil);
+      cursor: pointer;
+      transition: border-color 0.3s, color 0.3s, transform 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+    .hero-scroll {
+      position: absolute; right: 4rem; bottom: 4rem;
+      display: flex; flex-direction: column; align-items: center; gap: 0.8rem;
+      opacity: 0; animation: fadeIn 1s 1.5s forwards;
+    }
+    .hero-scroll span {
+      font-size: 0.55rem; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--muted);
+      writing-mode: vertical-rl;
+    }
+    .scroll-line {
+      width: 1px; height: 60px;
+      background: linear-gradient(to bottom, var(--terra), transparent);
+      animation: scrollPulse 2s infinite;
+    }
+
+    /* SECTIONS COMMON */
+    section { padding: 8rem 4rem; position: relative; }
+    .section-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .section-label::before {
+      content: '';
+      width: 30px; height: 1px;
+      background: var(--accent);
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--cream);
+      margin-bottom: 3rem;
+    }
+
+    /* BIO */
+    #bio {
+      background: var(--bg2);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+    .bio-image-wrap {
+      position: relative;
+    }
+    .bio-image-frame {
+      width: 100%; aspect-ratio: 3/4;
+      background: var(--soil);
+      position: relative;
+      overflow: hidden;
+    }
+    .bio-image-frame::before {
+      content: 'HEADONIT';
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--terra);
+      letter-spacing: 0.1em;
+      opacity: 0.3;
+    }
+    .bio-image-frame img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block;
+      transition: transform 0.6s;
+    }
+    .bio-image-frame:hover img { transform: scale(1.04); }
+    .bio-deco-line {
+      position: absolute;
+      top: -20px; left: -20px;
+      width: 80px; height: 80px;
+      border-top: 2px solid var(--gold);
+      border-left: 2px solid var(--gold);
+    }
+    .bio-deco-line2 {
+      position: absolute;
+      bottom: -20px; right: -20px;
+      width: 80px; height: 80px;
+      border-bottom: 2px solid var(--terra);
+      border-right: 2px solid var(--terra);
+    }
+    .bio-content p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      line-height: 1.9;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+    .bio-content p strong { color: var(--sand); font-style: italic; }
+    .bio-stats {
+      display: flex; gap: 3rem; margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--soil);
+    }
+    .bio-stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--gold);
+    }
+    .bio-stat-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.3rem;
+    }
+
+    /* MUSIC */
+    #music {
+      background: var(--bg);
+      overflow: hidden;
+    }
+    .music-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5px;
+      margin-top: 4rem;
+    }
+    .mix-card {
+      background: var(--bg2);
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .mix-card:hover { background: var(--soil); }
+    .mix-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(to right, var(--terra), var(--gold));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.4s;
+    }
+    .mix-card:hover::before { transform: scaleX(1); }
+    .mix-num {
+      font-size: 0.55rem; letter-spacing: 0.4em;
+      color: var(--terra); margin-bottom: 1.5rem;
+    }
+    .mix-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 0.5rem;
+    }
+    .mix-meta {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+    .mix-waveform {
+      height: 40px;
+      display: flex; align-items: flex-end; gap: 3px;
+      margin-bottom: 1.5rem;
+    }
+    .mix-waveform span {
+      flex: 1;
+      background: var(--terra);
+      opacity: 0.5;
+      border-radius: 1px;
+      transition: background 0.3s, opacity 0.3s;
+    }
+    .mix-card:hover .mix-waveform span {
+      background: var(--gold); opacity: 0.8;
+    }
+    .mix-play {
+      width: 44px; height: 44px;
+      border: 1px solid var(--terra);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .mix-card:hover .mix-play {
+      background: var(--accent); border-color: var(--accent);
+    }
+    .mix-play svg { fill: var(--cream); margin-left: 3px; }
+
+    /* GALLERY */
+    #gallery {
+      background: var(--bg2);
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: auto;
+      gap: 8px;
+      margin-top: 4rem;
+    }
+    .gallery-item {
+      background: var(--soil);
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+    .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+    .gallery-item:nth-child(4) { grid-column: span 2; }
+    .gallery-item-inner {
+      width: 100%; height: 100%;
+      min-height: 200px;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .gallery-item-inner::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, var(--soil) 0%, var(--terra) 50%, var(--bg) 100%);
+      opacity: 0.8;
+    }
+    .gallery-placeholder {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      opacity: 0.5;
+      position: relative;
+      z-index: 1;
+    }
+    .gallery-item-overlay {
+      position: absolute; inset: 0;
+      background: rgba(13,10,7,0.7);
+      display: flex; align-items: flex-end;
+      padding: 1.5rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .gallery-item:hover .gallery-item-overlay { opacity: 1; }
+    .gallery-item-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--sand);
+    }
+
+    /* TOUR */
+    #tour {
+      background: var(--bg);
+    }
+    .tour-list {
+      margin-top: 4rem;
+      display: flex; flex-direction: column; gap: 1px;
+    }
+    .tour-item {
+      display: grid;
+      grid-template-columns: 100px 1fr 1fr auto;
+      align-items: center;
+      gap: 2rem;
+      padding: 1.8rem 2rem;
+      background: var(--bg2);
+      border-left: 3px solid transparent;
+      transition: background 0.3s, border-color 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .tour-item::after {
+      content: '';
+      position: absolute; right: 0; top: 0; bottom: 0;
+      width: 0;
+      background: linear-gradient(to left, rgba(196,124,62,0.05), transparent);
+      transition: width 0.4s;
+    }
+    .tour-item:hover { background: var(--soil); border-color: var(--accent); }
+    .tour-item:hover::after { width: 50%; }
+    .tour-date {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.9rem;
+      color: var(--gold);
+    }
+    .tour-date span { display: block; font-size: 1.6rem; font-weight: 900; }
+    .tour-event { font-size: 1rem; color: var(--cream); }
+    .tour-event small {
+      display: block; font-size: 0.65rem;
+      letter-spacing: 0.15em; color: var(--muted);
+      margin-top: 0.3rem;
+    }
+    .tour-venue { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; }
+    .tour-btn {
+      padding: 0.7rem 1.5rem;
+      background: transparent;
+      border: 1px solid var(--terra);
+      color: var(--sand);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+    .tour-btn:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+    .tour-item.past { opacity: 0.4; }
+
+    /* CONTACT */
+    #contact {
+      background: var(--bg2);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+    .contact-info p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: var(--muted);
+      margin-bottom: 3rem;
+    }
+    .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-link {
+      display: flex; align-items: center; gap: 1rem;
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      transition: color 0.3s;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid var(--soil);
+    }
+    .contact-link:hover { color: var(--gold); }
+    .contact-link-icon {
+      width: 36px; height: 36px;
+      border: 1px solid var(--soil);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .contact-link:hover .contact-link-icon {
+      border-color: var(--gold);
+      background: rgba(212,160,84,0.1);
+    }
+    .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+    .form-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .form-input, .form-textarea {
+      background: var(--bg);
+      border: 1px solid var(--soil);
+      color: var(--text);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      padding: 1rem 1.2rem;
+      outline: none;
+      transition: border-color 0.3s;
+      resize: none;
+    }
+    .form-input:focus, .form-textarea:focus { border-color: var(--gold); }
+    .form-textarea { min-height: 120px; }
+    .form-submit {
+      padding: 1.2rem 2.5rem;
+      background: var(--accent);
+      color: var(--bg);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      align-self: flex-start;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .form-submit:hover { background: var(--gold); transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer {
+      background: var(--bg);
+      padding: 3rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--soil);
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 900;
+      letter-spacing: 0.25em;
+      color: var(--gold);
+    }
+    .footer-copy {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+    }
+    .footer-social { display: flex; gap: 1.5rem; }
+    .footer-social a {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-social a:hover { color: var(--gold); }
+
+    /* DIVIDER */
+    .divider {
+      width: 100%; height: 1px;
+      background: linear-gradient(to right, transparent, var(--terra), var(--gold), var(--terra), transparent);
+      opacity: 0.3;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; } to { opacity: 1; }
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; }
+      50%       { opacity: 1; }
+    }
+
+    /* SCROLL REVEAL */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 1.2rem 2rem; }
+      section { padding: 5rem 2rem; }
+      #bio, #contact { grid-template-columns: 1fr; gap: 3rem; }
+      #hero { padding: 0 2rem 4rem; }
+      .hero-title { font-size: clamp(3.5rem, 18vw, 7rem); }
+      .music-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-item:nth-child(1) { grid-column: span 2; }
+      .tour-item { grid-template-columns: 80px 1fr; }
+      .tour-venue, .tour-btn { display: none; }
+      footer { flex-direction: column; gap: 1.5rem; text-align: center; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor" style="left: 1131px; top: 499px;"></div>
+  <div class="cursor-ring" id="cursorRing" style="left: 1131px; top: 499px;"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="file:///Users/baturaykartal/Downloads/headonit_1.html#hero" class="nav-logo">HEADONIT</a>
+    <ul class="nav-links">
+      <li><a href="file:///Users/baturaykartal/Downloads/headonit_1.html#bio">Bio</a></li>
+      <li><a href="file:///Users/baturaykartal/Downloads/headonit_1.html#music">Müzik</a></li>
+      <li><a href="file:///Users/baturaykartal/Downloads/headonit_1.html#gallery">Galeri</a></li>
+      <li><a href="file:///Users/baturaykartal/Downloads/headonit_1.html#tour">Turne</a></li>
+      <li><a href="file:///Users/baturaykartal/Downloads/headonit_1.html#contact">Booking</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grain"></div>
+    <div class="hero-lines"></div>
+    <p class="hero-eyebrow">DJ &amp; Producer · Afrobeats · Electronic</p>
+    <h1 class="hero-title">
+      HEAD<span>ONIT</span>
+    </h1>
+    <div class="hero-sub">
+      <p>Kıtanın ritmini çağdaş elektronik seslerle harmanlayan, sahnede sınır tanımayan bir deneyim.</p>
+    </div>
+    <div class="hero-cta">
+      <a href="file:///Users/baturaykartal/Downloads/headonit_1.html#music" class="btn-primary">Müziği Dinle</a>
+      <a href="file:///Users/baturaykartal/Downloads/headonit_1.html#contact" class="btn-outline">Booking</a>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- BIO -->
+  <section id="bio" class="reveal">
+    <div class="bio-image-wrap">
+      <div class="bio-deco-line"></div>
+      <div class="bio-image-frame">
+        <!-- Fotoğraf eklemek için: <img src="foto.jpg" alt="Headonit"> -->
+      </div>
+      <div class="bio-deco-line2"></div>
+    </div>
+    <div class="bio-content">
+      <p class="section-label">Hakkımda</p>
+      <h2 class="section-title">Ritmin<br>Köklerinde</h2>
+      <p>
+        <strong>Headonit</strong>, afrobeats'in yoğun ritmik dokusunu ambient elektronik seslerle harmanlayan bağımsız bir DJ ve prodüktör. Sahnede yarattığı atmosfer, dinleyiciyi kıtanın kalbine taşır.
+      </p>
+      <p>
+        İstanbul'dan yükselen bu ses, Güney Afrika, Nijerya ve Gana'nın kültürel mirasını dijital çağın bağlamında yeniden yorumluyor. Her set bir yolculuk, her mix bir manifesto.
+      </p>
+      <div class="bio-stats">
+        <div>
+          <div class="bio-stat-num">200+</div>
+          <div class="bio-stat-label">Canlı Set</div>
+        </div>
+        <div>
+          <div class="bio-stat-num">12</div>
+          <div class="bio-stat-label">Ülke</div>
+        </div>
+        <div>
+          <div class="bio-stat-num">50K+</div>
+          <div class="bio-stat-label">Takipçi</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- MUSIC -->
+  <section id="music">
+    <p class="section-label">Diskografi</p>
+    <h2 class="section-title">Mix &amp;<br>Prodüksiyonlar</h2>
+    <div class="music-grid reveal">
+      <!-- Mix 1 -->
+      <div class="mix-card">
+        <div class="mix-num">001 — 2024</div>
+        <div class="mix-title">Lagos Twilight</div>
+        <div class="mix-meta">Afrobeats · 74 DK · 120 BPM</div>
+        <div class="mix-waveform" id="wave1"><span style="height: 15px;"></span><span style="height: 25px;"></span><span style="height: 18px;"></span><span style="height: 35px;"></span><span style="height: 22px;"></span><span style="height: 40px;"></span><span style="height: 30px;"></span><span style="height: 20px;"></span><span style="height: 38px;"></span><span style="height: 28px;"></span><span style="height: 16px;"></span><span style="height: 32px;"></span><span style="height: 24px;"></span><span style="height: 42px;"></span><span style="height: 19px;"></span><span style="height: 36px;"></span><span style="height: 27px;"></span><span style="height: 14px;"></span><span style="height: 33px;"></span><span style="height: 26px;"></span><span style="height: 45px;"></span><span style="height: 21px;"></span><span style="height: 37px;"></span><span style="height: 17px;"></span><span style="height: 29px;"></span></div>
+        <div class="mix-play">
+          <svg width="12" height="14" viewBox="0 0 12 14"><path d="M1 1l10 6L1 13V1z"></path></svg>
+        </div>
+      </div>
+      <!-- Mix 2 -->
+      <div class="mix-card">
+        <div class="mix-num">002 — 2024</div>
+        <div class="mix-title">Savanna Dusk</div>
+        <div class="mix-meta">Afro Electronic · 62 DK · 115 BPM</div>
+        <div class="mix-waveform" id="wave2"><span style="height: 15px;"></span><span style="height: 25px;"></span><span style="height: 18px;"></span><span style="height: 35px;"></span><span style="height: 22px;"></span><span style="height: 40px;"></span><span style="height: 30px;"></span><span style="height: 20px;"></span><span style="height: 38px;"></span><span style="height: 28px;"></span><span style="height: 16px;"></span><span style="height: 32px;"></span><span style="height: 24px;"></span><span style="height: 42px;"></span><span style="height: 19px;"></span><span style="height: 36px;"></span><span style="height: 27px;"></span><span style="height: 14px;"></span><span style="height: 33px;"></span><span style="height: 26px;"></span><span style="height: 45px;"></span><span style="height: 21px;"></span><span style="height: 37px;"></span><span style="height: 17px;"></span><span style="height: 29px;"></span></div>
+        <div class="mix-play">
+          <svg width="12" height="14" viewBox="0 0 12 14"><path d="M1 1l10 6L1 13V1z"></path></svg>
+        </div>
+      </div>
+      <!-- Mix 3 -->
+      <div class="mix-card">
+        <div class="mix-num">003 — 2023</div>
+        <div class="mix-title">Red Earth</div>
+        <div class="mix-meta">Amapiano · 80 DK · 112 BPM</div>
+        <div class="mix-waveform" id="wave3"><span style="height: 15px;"></span><span style="height: 25px;"></span><span style="height: 18px;"></span><span style="height: 35px;"></span><span style="height: 22px;"></span><span style="height: 40px;"></span><span style="height: 30px;"></span><span style="height: 20px;"></span><span style="height: 38px;"></span><span style="height: 28px;"></span><span style="height: 16px;"></span><span style="height: 32px;"></span><span style="height: 24px;"></span><span style="height: 42px;"></span><span style="height: 19px;"></span><span style="height: 36px;"></span><span style="height: 27px;"></span><span style="height: 14px;"></span><span style="height: 33px;"></span><span style="height: 26px;"></span><span style="height: 45px;"></span><span style="height: 21px;"></span><span style="height: 37px;"></span><span style="height: 17px;"></span><span style="height: 29px;"></span></div>
+        <div class="mix-play">
+          <svg width="12" height="14" viewBox="0 0 12 14"><path d="M1 1l10 6L1 13V1z"></path></svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- GALLERY -->
+  <section id="gallery">
+    <p class="section-label">Galeri</p>
+    <h2 class="section-title">Anlara<br>Bakış</h2>
+    <div class="gallery-grid reveal">
+      <div class="gallery-item">
+        <div class="gallery-item-inner">
+          <span class="gallery-placeholder">FOTO 01</span>
+        </div>
+        <div class="gallery-item-overlay">
+          <span class="gallery-item-label">Berlin, Tresor — 2024</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-inner">
+          <span class="gallery-placeholder">FOTO 02</span>
+        </div>
+        <div class="gallery-item-overlay">
+          <span class="gallery-item-label">Lagos, Afro Nation — 2024</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-inner">
+          <span class="gallery-placeholder">FOTO 03</span>
+        </div>
+        <div class="gallery-item-overlay">
+          <span class="gallery-item-label">İstanbul, Nublu — 2024</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-inner">
+          <span class="gallery-placeholder">FOTO 04</span>
+        </div>
+        <div class="gallery-item-overlay">
+          <span class="gallery-item-label">Amsterdam, Dekmantel — 2023</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-inner">
+          <span class="gallery-placeholder">FOTO 05</span>
+        </div>
+        <div class="gallery-item-overlay">
+          <span class="gallery-item-label">Stüdyo — 2024</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- TOUR -->
+  <section id="tour">
+    <p class="section-label">Takvim</p>
+    <h2 class="section-title">Yaklaşan<br>Etkinlikler</h2>
+    <div class="tour-list reveal">
+      <div class="tour-item">
+        <div class="tour-date">MAR<span>22</span></div>
+        <div class="tour-event">
+          Boiler Room Istanbul
+          <small>Afrobeats Night</small>
+        </div>
+        <div class="tour-venue">Küçükçiftlik Park, İstanbul · TR</div>
+        <button class="tour-btn">Bilet Al</button>
+      </div>
+      <div class="tour-item">
+        <div class="tour-date">APR<span>05</span></div>
+        <div class="tour-event">
+          Fabric London
+          <small>Special Guest Set</small>
+        </div>
+        <div class="tour-venue">Fabric, London · UK</div>
+        <button class="tour-btn">Bilet Al</button>
+      </div>
+      <div class="tour-item">
+        <div class="tour-date">APR<span>19</span></div>
+        <div class="tour-event">
+          De School Amsterdam
+          <small>Afro Electronic</small>
+        </div>
+        <div class="tour-venue">Amsterdam · NL</div>
+        <button class="tour-btn">Bilet Al</button>
+      </div>
+      <div class="tour-item">
+        <div class="tour-date">MAY<span>03</span></div>
+        <div class="tour-event">
+          Dekmantel Festival
+          <small>Main Stage</small>
+        </div>
+        <div class="tour-venue">Amsterdam · NL</div>
+        <button class="tour-btn">Bilet Al</button>
+      </div>
+      <div class="tour-item past">
+        <div class="tour-date">FEB<span>14</span></div>
+        <div class="tour-event">
+          Afro Nation Lagos
+          <small>Geçmiş Etkinlik</small>
+        </div>
+        <div class="tour-venue">Lagos · NG</div>
+        <button class="tour-btn">Arşiv</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-info reveal">
+      <p class="section-label">İletişim</p>
+      <h2 class="section-title">Booking &amp;<br>İşbirlikleri</h2>
+      <p>
+        Festival, kulüp, özel etkinlik ve prodüksiyon işbirlikleri için iletişime geçin.
+      </p>
+      <div class="contact-links">
+        <a href="mailto:booking@headonit.com" class="contact-link">
+          <div class="contact-link-icon">✉</div>
+          booking@headonit.com
+        </a>
+        <a href="file:///Users/baturaykartal/Downloads/headonit_1.html#" class="contact-link">
+          <div class="contact-link-icon">☎</div>
+          +90 (0) 500 000 0000
+        </a>
+        <a href="file:///Users/baturaykartal/Downloads/headonit_1.html#" class="contact-link">
+          <div class="contact-link-icon">◈</div>
+          Instagram · @headonit
+        </a>
+        <a href="file:///Users/baturaykartal/Downloads/headonit_1.html#" class="contact-link">
+          <div class="contact-link-icon">◉</div>
+          SoundCloud · headonit
+        </a>
+      </div>
+    </div>
+    <div class="contact-form reveal" style="transition-delay: 0.2s;">
+      <div class="form-group">
+        <label class="form-label">Ad Soyad</label>
+        <input class="form-input" type="text" placeholder="İsminizi girin">
+      </div>
+      <div class="form-group">
+        <label class="form-label">E-Posta</label>
+        <input class="form-input" type="email" placeholder="email@ornek.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Etkinlik Türü</label>
+        <input class="form-input" type="text" placeholder="Festival, Kulüp, Özel...">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Mesajınız</label>
+        <textarea class="form-textarea" placeholder="Etkinlik detaylarını paylaşın..."></textarea>
+      </div>
+      <button class="form-submit">Gönder →</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">HEADONIT</div>
+    <div class="footer-copy">© 2026 Headonit. Tüm hakları saklıdır.</div>
+    <div class="footer-social">
+      <a href="file:///Users/baturaykartal/Downloads/headonit_1.html#">Instagram</a>
+      <a href="file:///Users/baturaykartal/Downloads/headonit_1.html#">SoundCloud</a>
+      <a href="file:///Users/baturaykartal/Downloads/headonit_1.html#">Spotify</a>
+      <a href="file:///Users/baturaykartal/Downloads/headonit_1.html#">YouTube</a>
+    </div>
+  </footer>
+
+  <script>
+    // Custom cursor
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+      setTimeout(() => {
+        ring.style.left = e.clientX + 'px';
+        ring.style.top = e.clientY + 'px';
+      }, 60);
+    });
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.width = '20px';
+        cursor.style.height = '20px';
+        ring.style.width = '60px';
+        ring.style.height = '60px';
+        ring.style.opacity = '0.3';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.style.width = '12px';
+        cursor.style.height = '12px';
+        ring.style.width = '36px';
+        ring.style.height = '36px';
+        ring.style.opacity = '0.6';
+      });
+    });
+
+    // Generate waveforms
+    ['wave1','wave2','wave3'].forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const heights = [15,25,18,35,22,40,30,20,38,28,16,32,24,42,19,36,27,14,33,26,45,21,37,17,29];
+      heights.forEach(h => {
+        const bar = document.createElement('span');
+        bar.style.height = h + 'px';
+        el.appendChild(bar);
+      });
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(r => obs.observe(r));
+  </script>
+
+
+</body></html>
