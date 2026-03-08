@@ -141,7 +141,9 @@
       background:
         radial-gradient(ellipse 80% 60% at 60% 30%, rgba(124,79,47,0.25) 0%, transparent 70%),
         radial-gradient(ellipse 50% 50% at 20% 80%, rgba(196,124,62,0.12) 0%, transparent 60%),
-        radial-gradient(ellipse 100% 100% at 50% 50%, rgba(212,160,84,0.04) 0%, transparent 80%);
+        radial-gradient(ellipse 100% 100% at 50% 50%, rgba(212,160,84,0.04) 0%, transparent 80%),
+        url('images/headonit-bio.jpg') center/cover no-repeat;
+      opacity: 0.15;
     }
     .hero-grain {
       position: absolute; inset: 0;
@@ -306,15 +308,7 @@
       overflow: hidden;
     }
     .bio-image-frame::before {
-      content: 'HEADONIT';
-      position: absolute; inset: 0;
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Playfair Display', serif;
-      font-size: 3rem;
-      font-weight: 900;
-      color: var(--terra);
-      letter-spacing: 0.1em;
-      opacity: 0.3;
+      display: none;
     }
     .bio-image-frame img {
       width: 100%; height: 100%; object-fit: cover;
@@ -462,7 +456,8 @@
       content: '';
       position: absolute; inset: 0;
       background: linear-gradient(135deg, var(--soil) 0%, var(--terra) 50%, var(--bg) 100%);
-      opacity: 0.8;
+      opacity: 0;
+      z-index: 0;
     }
     .gallery-item-inner img {
       width: 100%; height: 100%;
@@ -837,19 +832,7 @@
     <div class="bio-image-wrap reveal">
       <div class="bio-deco-line"></div>
       <div class="bio-image-frame">
-        <!--
-          ╔═══════════════════════════════════════════════════════╗
-          ║  PHOTO: Add your artist photo here.                  ║
-          ║  Replace this comment with an <img> tag:             ║
-          ║                                                       ║
-          ║  <img src="images/headonit-bio.jpg"                  ║
-          ║       alt="Headonit - Baturay Kartal"                ║
-          ║       loading="lazy">                                ║
-          ║                                                       ║
-          ║  Recommended: Portrait orientation, 3:4 ratio,       ║
-          ║  minimum 800x1067px. The frame will auto-crop.       ║
-          ╚═══════════════════════════════════════════════════════╝
-        -->
+        <img src="images/headonit-bio.jpg" alt="Headonit - Baturay Kartal" loading="lazy">
       </div>
       <div class="bio-deco-line2"></div>
     </div>
@@ -955,26 +938,10 @@
     <h2 class="section-title reveal">Captured<br>Moments</h2>
     <div class="gallery-grid reveal">
 
-      <!--
-        ╔═══════════════════════════════════════════════════════════╗
-        ║  GALLERY PHOTOS: Replace each placeholder with:          ║
-        ║                                                           ║
-        ║  <img src="images/gallery-01.jpg"                        ║
-        ║       alt="Description of the photo"                     ║
-        ║       loading="lazy">                                    ║
-        ║                                                           ║
-        ║  Place the <img> inside the .gallery-item-inner div,     ║
-        ║  replacing the <span class="gallery-placeholder"> tag.   ║
-        ║  Images will auto-fill and crop to fit the grid cell.    ║
-        ║  Recommended: min 1200px wide for the large cell (#1).   ║
-        ╚═══════════════════════════════════════════════════════════╝
-      -->
-
       <!-- Photo 1 — Large (spans 2 columns + 2 rows) -->
       <div class="gallery-item">
         <div class="gallery-item-inner">
-          <!-- PHOTO 1: Replace with <img src="images/gallery-01.jpg" alt="Live performance" loading="lazy"> -->
-          <span class="gallery-placeholder">PHOTO 01</span>
+          <img src="images/gallery-01.jpg" alt="Headonit - Live Performance" loading="lazy">
         </div>
         <div class="gallery-item-overlay">
           <span class="gallery-item-label">Live Performance — 2025</span>
@@ -984,8 +951,7 @@
       <!-- Photo 2 -->
       <div class="gallery-item">
         <div class="gallery-item-inner">
-          <!-- PHOTO 2: Replace with <img src="images/gallery-02.jpg" alt="DJ Set" loading="lazy"> -->
-          <span class="gallery-placeholder">PHOTO 02</span>
+          <img src="images/gallery-02.jpg" alt="Headonit - DJ Set" loading="lazy">
         </div>
         <div class="gallery-item-overlay">
           <span class="gallery-item-label">DJ Set — Istanbul</span>
@@ -995,8 +961,7 @@
       <!-- Photo 3 -->
       <div class="gallery-item">
         <div class="gallery-item-inner">
-          <!-- PHOTO 3: Replace with <img src="images/gallery-03.jpg" alt="Studio Session" loading="lazy"> -->
-          <span class="gallery-placeholder">PHOTO 03</span>
+          <img src="images/gallery-03.jpg" alt="Headonit - Studio Session" loading="lazy">
         </div>
         <div class="gallery-item-overlay">
           <span class="gallery-item-label">Studio Session — 2025</span>
@@ -1006,8 +971,7 @@
       <!-- Photo 4 — Wide (spans 2 columns) -->
       <div class="gallery-item">
         <div class="gallery-item-inner">
-          <!-- PHOTO 4: Replace with <img src="images/gallery-04.jpg" alt="Festival Stage" loading="lazy"> -->
-          <span class="gallery-placeholder">PHOTO 04</span>
+          <img src="images/gallery-04.jpg" alt="Headonit - Festival Stage" loading="lazy">
         </div>
         <div class="gallery-item-overlay">
           <span class="gallery-item-label">Festival Stage — 2025</span>
@@ -1017,8 +981,7 @@
       <!-- Photo 5 -->
       <div class="gallery-item">
         <div class="gallery-item-inner">
-          <!-- PHOTO 5: Replace with <img src="images/gallery-05.jpg" alt="Behind the Scenes" loading="lazy"> -->
-          <span class="gallery-placeholder">PHOTO 05</span>
+          <img src="images/gallery-05.jpg" alt="Headonit - Behind the Scenes" loading="lazy">
         </div>
         <div class="gallery-item-overlay">
           <span class="gallery-item-label">Behind the Scenes — 2025</span>
