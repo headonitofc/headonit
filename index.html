@@ -141,7 +141,9 @@
       background:
         radial-gradient(ellipse 80% 60% at 60% 30%, rgba(124,79,47,0.25) 0%, transparent 70%),
         radial-gradient(ellipse 50% 50% at 20% 80%, rgba(196,124,62,0.12) 0%, transparent 60%),
-        radial-gradient(ellipse 100% 100% at 50% 50%, rgba(212,160,84,0.04) 0%, transparent 80%);
+        radial-gradient(ellipse 100% 100% at 50% 50%, rgba(212,160,84,0.04) 0%, transparent 80%),
+        url('images/headonit-bio.jpg') center/cover no-repeat;
+      opacity: 0.15;
     }
     .hero-grain {
       position: absolute; inset: 0;
@@ -306,15 +308,7 @@
       overflow: hidden;
     }
     .bio-image-frame::before {
-      content: 'HEADONIT';
-      position: absolute; inset: 0;
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Playfair Display', serif;
-      font-size: 3rem;
-      font-weight: 900;
-      color: var(--terra);
-      letter-spacing: 0.1em;
-      opacity: 0.3;
+      display: none;
     }
     .bio-image-frame img {
       width: 100%; height: 100%; object-fit: cover;
@@ -462,7 +456,8 @@
       content: '';
       position: absolute; inset: 0;
       background: linear-gradient(135deg, var(--soil) 0%, var(--terra) 50%, var(--bg) 100%);
-      opacity: 0.8;
+      opacity: 0;
+      z-index: 0;
     }
     .gallery-item-inner img {
       width: 100%; height: 100%;
@@ -559,14 +554,16 @@
     .tour-item.past { opacity: 0.4; }
 
     /* ═══════════════════════════════
-       CONTACT / BOOKING SECTION
+       CONTACT SECTION
        ═══════════════════════════════ */
     #contact {
       background: var(--bg2);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6rem;
-      align-items: start;
+      display: block;
+      text-align: center;
+    }
+    #contact .contact-info {
+      max-width: 600px;
+      margin: 0 auto;
     }
     .contact-info p.contact-desc {
       font-size: 1.05rem;
@@ -574,7 +571,7 @@
       color: var(--muted);
       margin-bottom: 3rem;
     }
-    .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-links { display: flex; flex-direction: column; gap: 1rem; align-items: center; }
     .contact-link {
       display: flex; align-items: center; gap: 1rem;
       text-decoration: none;
@@ -598,43 +595,6 @@
       border-color: var(--gold);
       background: rgba(212,160,84,0.1);
     }
-    .contact-form {
-      display: flex; flex-direction: column; gap: 1.2rem;
-    }
-    .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
-    .form-label {
-      font-size: 0.6rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .form-input, .form-textarea {
-      background: var(--bg);
-      border: 1px solid var(--soil);
-      color: var(--text);
-      font-family: 'Space Mono', monospace;
-      font-size: 0.8rem;
-      padding: 1rem 1.2rem;
-      outline: none;
-      transition: border-color 0.3s;
-      resize: none;
-    }
-    .form-input:focus, .form-textarea:focus { border-color: var(--gold); }
-    .form-textarea { min-height: 120px; }
-    .form-submit {
-      padding: 1.2rem 2.5rem;
-      background: var(--accent);
-      color: var(--bg);
-      font-family: 'Space Mono', monospace;
-      font-size: 0.7rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      border: none;
-      cursor: pointer;
-      align-self: flex-start;
-      transition: background 0.3s, transform 0.2s;
-    }
-    .form-submit:hover { background: var(--gold); transform: translateY(-2px); }
 
     /* ═══════════════════════════════
        FOOTER
@@ -700,7 +660,7 @@
     @media (max-width: 1024px) {
       nav { padding: 1.2rem 2rem; }
       section { padding: 5rem 2rem; }
-      #bio, #contact { grid-template-columns: 1fr; gap: 3rem; }
+      #bio { grid-template-columns: 1fr; gap: 3rem; }
       #hero { padding: 0 2rem 4rem; }
       .hero-title { font-size: clamp(3.5rem, 18vw, 7rem); }
       .music-embeds { grid-template-columns: 1fr; }
@@ -792,7 +752,7 @@
       <li><a href="#music">Music</a></li>
       <li><a href="#gallery">Gallery</a></li>
       <li><a href="#tour">Events</a></li>
-      <li><a href="#contact">Booking</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
 
@@ -816,10 +776,6 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
         Listen Now
       </a>
-      <a href="#contact" class="btn-outline">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        Book Now
-      </a>
     </div>
     <div class="hero-scroll">
       <div class="scroll-line"></div>
@@ -837,19 +793,7 @@
     <div class="bio-image-wrap reveal">
       <div class="bio-deco-line"></div>
       <div class="bio-image-frame">
-        <!--
-          ╔═══════════════════════════════════════════════════════╗
-          ║  PHOTO: Add your artist photo here.                  ║
-          ║  Replace this comment with an <img> tag:             ║
-          ║                                                       ║
-          ║  <img src="images/headonit-bio.jpg"                  ║
-          ║       alt="Headonit - Baturay Kartal"                ║
-          ║       loading="lazy">                                ║
-          ║                                                       ║
-          ║  Recommended: Portrait orientation, 3:4 ratio,       ║
-          ║  minimum 800x1067px. The frame will auto-crop.       ║
-          ╚═══════════════════════════════════════════════════════╝
-        -->
+        <img src="images/headonit-bio.jpg" alt="Headonit - Baturay Kartal" loading="lazy">
       </div>
       <div class="bio-deco-line2"></div>
     </div>
@@ -917,7 +861,7 @@
           scrolling="no"
           frameborder="no"
           allow="autoplay"
-          src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/baturay-kartal-438113118&color=%23e07c3a&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true"
+          src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/headonit_ofc&color=%23e07c3a&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=true"
           title="SoundCloud - Headonit">
         </iframe>
       </div>
@@ -929,7 +873,7 @@
         <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
         Spotify
       </a>
-      <a href="https://soundcloud.com/baturay-kartal-438113118" target="_blank" rel="noopener noreferrer" class="platform-link">
+      <a href="https://soundcloud.com/headonit_ofc" target="_blank" rel="noopener noreferrer" class="platform-link">
         <svg viewBox="0 0 24 24"><path d="M11.56 8.87V17h8.76c1.85-.13 3.3-1.67 3.3-3.54 0-1.97-1.6-3.56-3.56-3.56-.39 0-.77.06-1.12.18C18.6 7.05 16.08 4.5 13 4.5c-.85 0-1.65.2-2.37.56v.01c.57.3 1.03.78 1.28 1.38.14.34.22.71.22 1.1v1.32h.43zm-1.2-3.74c-.48-.2-1-.31-1.56-.31C6.59 4.82 4.82 6.59 4.82 8.8c0 .35.04.69.13 1.02C2.17 10.08 0 12.38 0 15.18 0 18.1 2.37 20.47 5.29 20.47H10V8.85c0-1.53-.62-2.92-1.64-3.72z"/></svg>
         SoundCloud
       </a>
@@ -955,26 +899,10 @@
     <h2 class="section-title reveal">Captured<br>Moments</h2>
     <div class="gallery-grid reveal">
 
-      <!--
-        ╔═══════════════════════════════════════════════════════════╗
-        ║  GALLERY PHOTOS: Replace each placeholder with:          ║
-        ║                                                           ║
-        ║  <img src="images/gallery-01.jpg"                        ║
-        ║       alt="Description of the photo"                     ║
-        ║       loading="lazy">                                    ║
-        ║                                                           ║
-        ║  Place the <img> inside the .gallery-item-inner div,     ║
-        ║  replacing the <span class="gallery-placeholder"> tag.   ║
-        ║  Images will auto-fill and crop to fit the grid cell.    ║
-        ║  Recommended: min 1200px wide for the large cell (#1).   ║
-        ╚═══════════════════════════════════════════════════════════╝
-      -->
-
       <!-- Photo 1 — Large (spans 2 columns + 2 rows) -->
       <div class="gallery-item">
         <div class="gallery-item-inner">
-          <!-- PHOTO 1: Replace with <img src="images/gallery-01.jpg" alt="Live performance" loading="lazy"> -->
-          <span class="gallery-placeholder">PHOTO 01</span>
+          <img src="images/gallery-01.jpg" alt="Headonit - Live Performance" loading="lazy">
         </div>
         <div class="gallery-item-overlay">
           <span class="gallery-item-label">Live Performance — 2025</span>
@@ -984,8 +912,7 @@
       <!-- Photo 2 -->
       <div class="gallery-item">
         <div class="gallery-item-inner">
-          <!-- PHOTO 2: Replace with <img src="images/gallery-02.jpg" alt="DJ Set" loading="lazy"> -->
-          <span class="gallery-placeholder">PHOTO 02</span>
+          <img src="images/gallery-02.jpg" alt="Headonit - DJ Set" loading="lazy">
         </div>
         <div class="gallery-item-overlay">
           <span class="gallery-item-label">DJ Set — Istanbul</span>
@@ -995,8 +922,7 @@
       <!-- Photo 3 -->
       <div class="gallery-item">
         <div class="gallery-item-inner">
-          <!-- PHOTO 3: Replace with <img src="images/gallery-03.jpg" alt="Studio Session" loading="lazy"> -->
-          <span class="gallery-placeholder">PHOTO 03</span>
+          <img src="images/gallery-03.jpg" alt="Headonit - Studio Session" loading="lazy">
         </div>
         <div class="gallery-item-overlay">
           <span class="gallery-item-label">Studio Session — 2025</span>
@@ -1006,8 +932,7 @@
       <!-- Photo 4 — Wide (spans 2 columns) -->
       <div class="gallery-item">
         <div class="gallery-item-inner">
-          <!-- PHOTO 4: Replace with <img src="images/gallery-04.jpg" alt="Festival Stage" loading="lazy"> -->
-          <span class="gallery-placeholder">PHOTO 04</span>
+          <img src="images/gallery-04.jpg" alt="Headonit - Festival Stage" loading="lazy">
         </div>
         <div class="gallery-item-overlay">
           <span class="gallery-item-label">Festival Stage — 2025</span>
@@ -1017,8 +942,7 @@
       <!-- Photo 5 -->
       <div class="gallery-item">
         <div class="gallery-item-inner">
-          <!-- PHOTO 5: Replace with <img src="images/gallery-05.jpg" alt="Behind the Scenes" loading="lazy"> -->
-          <span class="gallery-placeholder">PHOTO 05</span>
+          <img src="images/gallery-05.jpg" alt="Headonit - Behind the Scenes" loading="lazy">
         </div>
         <div class="gallery-item-overlay">
           <span class="gallery-item-label">Behind the Scenes — 2025</span>
@@ -1034,69 +958,30 @@
        Upcoming events list
        ════════════════════════════════════════ -->
   <section id="tour">
-    <p class="section-label reveal">Calendar</p>
-    <h2 class="section-title reveal">Upcoming<br>Events</h2>
-    <div class="tour-list reveal">
-      <div class="tour-item">
-        <div class="tour-date">MAR<span>22</span></div>
-        <div class="tour-event">
-          Boiler Room Istanbul
-          <small>Afro House Night</small>
-        </div>
-        <div class="tour-venue">Zorlu PSM, Istanbul · TR</div>
-        <a href="#contact" class="tour-btn">Get Tickets</a>
-      </div>
-      <div class="tour-item">
-        <div class="tour-date">APR<span>05</span></div>
-        <div class="tour-event">
-          Fabric London
-          <small>Special Guest Set</small>
-        </div>
-        <div class="tour-venue">Fabric, London · UK</div>
-        <a href="#contact" class="tour-btn">Get Tickets</a>
-      </div>
-      <div class="tour-item">
-        <div class="tour-date">APR<span>19</span></div>
-        <div class="tour-event">
-          De School Amsterdam
-          <small>Afro Tech Night</small>
-        </div>
-        <div class="tour-venue">De School, Amsterdam · NL</div>
-        <a href="#contact" class="tour-btn">Get Tickets</a>
-      </div>
-      <div class="tour-item">
-        <div class="tour-date">MAY<span>10</span></div>
-        <div class="tour-event">
-          Watergate Berlin
-          <small>Headonit Live</small>
-        </div>
-        <div class="tour-venue">Watergate, Berlin · DE</div>
-        <a href="#contact" class="tour-btn">Get Tickets</a>
-      </div>
-      <div class="tour-item past">
-        <div class="tour-date">FEB<span>14</span></div>
-        <div class="tour-event">
-          Afro Nation Lagos
-          <small>Past Event</small>
-        </div>
-        <div class="tour-venue">Lagos · NG</div>
-        <span class="tour-btn" style="opacity:0.5;cursor:default;">Archive</span>
-      </div>
+    <p class="section-label reveal">Events</p>
+    <h2 class="section-title reveal">Events</h2>
+    <div class="tour-list reveal" style="text-align:center; padding: 3rem 1rem;">
+      <p style="color: var(--sand); font-family: 'Playfair Display', serif; font-size: 1.4rem; line-height: 1.8;">
+        New dates coming soon.
+      </p>
+      <p style="color: var(--muted); font-family: 'Space Mono', monospace; font-size: 0.85rem; margin-top: 1rem; letter-spacing: 0.05em;">
+        Stay tuned for upcoming events and announcements.
+      </p>
     </div>
   </section>
 
   <div class="divider"></div>
 
   <!-- ════════════════════════════════════════
-       CONTACT / BOOKING SECTION
-       Contact form + social media links
+       CONTACT SECTION
+       Social media links + contact info
        ════════════════════════════════════════ -->
   <section id="contact">
     <div class="contact-info reveal">
       <p class="section-label">Contact</p>
-      <h2 class="section-title">Booking &amp;<br>Inquiries</h2>
+      <h2 class="section-title">Contact</h2>
       <p class="contact-desc">
-        For festivals, clubs, private events and production collaborations — get in touch.
+        Follow the journey — new music, events and updates coming soon.
       </p>
       <div class="contact-links">
         <a href="mailto:headonitofficial@gmail.com" class="contact-link">
@@ -1111,7 +996,7 @@
           </div>
           Instagram · @headonit_ofc
         </a>
-        <a href="https://soundcloud.com/baturay-kartal-438113118" target="_blank" rel="noopener noreferrer" class="contact-link">
+        <a href="https://soundcloud.com/headonit_ofc" target="_blank" rel="noopener noreferrer" class="contact-link">
           <div class="contact-link-icon">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--muted)"><path d="M11.56 8.87V17h8.76c1.85-.13 3.3-1.67 3.3-3.54 0-1.97-1.6-3.56-3.56-3.56-.39 0-.77.06-1.12.18C18.6 7.05 16.08 4.5 13 4.5c-.85 0-1.65.2-2.37.56v.01c.57.3 1.03.78 1.28 1.38.14.34.22.71.22 1.1v1.32h.43zm-1.2-3.74c-.48-.2-1-.31-1.56-.31C6.59 4.82 4.82 6.59 4.82 8.8c0 .35.04.69.13 1.02C2.17 10.08 0 12.38 0 15.18 0 18.1 2.37 20.47 5.29 20.47H10V8.85c0-1.53-.62-2.92-1.64-3.72z"/></svg>
           </div>
@@ -1132,35 +1017,6 @@
       </div>
     </div>
 
-    <!-- Contact Form — submits to headonitofficial@gmail.com -->
-    <form class="contact-form reveal reveal-delay-1" action="https://formsubmit.co/headonitofficial@gmail.com" method="POST">
-      <!-- Honeypot anti-spam -->
-      <input type="text" name="_honey" style="display:none">
-      <!-- Disable captcha page -->
-      <input type="hidden" name="_captcha" value="false">
-      <!-- Redirect back after submit -->
-      <input type="hidden" name="_next" value="#">
-      <!-- Subject line -->
-      <input type="hidden" name="_subject" value="New Booking Inquiry — HEADONIT Website">
-
-      <div class="form-group">
-        <label class="form-label" for="name">Full Name</label>
-        <input class="form-input" type="text" id="name" name="name" placeholder="Your name" required>
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="email">Email</label>
-        <input class="form-input" type="email" id="email" name="email" placeholder="your@email.com" required>
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="event-type">Event Type</label>
-        <input class="form-input" type="text" id="event-type" name="event_type" placeholder="Festival, Club, Private Event...">
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="message">Message</label>
-        <textarea class="form-textarea" id="message" name="message" placeholder="Share the event details..." required></textarea>
-      </div>
-      <button type="submit" class="form-submit">Send Message →</button>
-    </form>
   </section>
 
   <!-- ════════════════════════════════════════
@@ -1172,7 +1028,7 @@
     <div class="footer-copy">&copy; 2026 Headonit (Baturay Kartal). All rights reserved.</div>
     <div class="footer-social">
       <a href="https://www.instagram.com/headonit_ofc" target="_blank" rel="noopener noreferrer">Instagram</a>
-      <a href="https://soundcloud.com/baturay-kartal-438113118" target="_blank" rel="noopener noreferrer">SoundCloud</a>
+      <a href="https://soundcloud.com/headonit_ofc" target="_blank" rel="noopener noreferrer">SoundCloud</a>
       <a href="https://open.spotify.com/artist/4vJybiyC25ss1azVN3jzsx" target="_blank" rel="noopener noreferrer">Spotify</a>
       <a href="https://www.youtube.com/@headonitofc" target="_blank" rel="noopener noreferrer">YouTube</a>
     </div>
